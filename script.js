@@ -7,15 +7,15 @@ $("#currentDay").text($(this).text().replace("", today));
 //loop to create separate rows for each hour
 for (var i=8; i<=17; i++) {
 
-    // add form rows for columns to sit in
-    formRow = $('<form class="row" id="' + i + '">');
+// add form rows for columns to sit in
+    formRow = $('<form class="row">');
     endForm = $('</form>');
- 
+    
 
     $(".container").append(formRow);
     
 
-    //create display hour with added meridian
+//create display hour with added meridian
     meridian = ""
     if (i < 12) {
         meridian=" AM"
@@ -31,38 +31,55 @@ for (var i=8; i<=17; i++) {
 
     displayHour = hour + meridian
 
-    // add field for displayHour to sit
+// add field for displayHour to sit
     hourField = $("<div class='col-1 hour'><p class='time-block'>" + displayHour + "</p></div>");
    
 
 
-    //add input textarea to each row
-    inputField = $("<div class='col-10'><textarea class='userInput' name='userInput'> </textarea></div>");
+//add textarea to each row
+    inputField = $("<div class='col-10'><textarea class='userInput description' name='userInput' id='" + i + "'> </textarea></div>");
 
 
     currentTime = moment().format("HH");
     smallTime = moment().format("hh");
 
-    //add save field
-   saveField = $("<button class='col-1 saveBtn' id='save" + i + "'><i class='far fa-save fa-lg'></i></button>");
+//add save field
+   saveField = $("<button class='col-1 saveBtn' data-save='" + i + "'><i class='far fa-save fa-lg'></i></button>");
 
 
 
-   // append above additions to the page
+// append above additions to the page
       $(formRow).append(hourField, inputField, saveField);
 
 
 
-// colorize each row per time of day
+// color each row per time of day
 
-if (i < currentTime) {
-    $("textarea").last().addClass("past");
-} else if (i == currentTime) {
-    $("textarea").last().addClass("present");
-} else {
-    $("textarea").last().addClass("future");
-}
-
+    if (i < currentTime) {
+        $("textarea").last().addClass("past");
+    } else if (i == currentTime) {
+        $("textarea").last().addClass("present");
+    } else {
+        $("textarea").last().addClass("future");
     }
 
+// get localStorage
+    function getLocalStorage(time) {
+        inputVal = localStorage.getItem(time);
+        inputArea = $("textarea").last().attr("id");
+        if (true) {
+            text = $("textarea").last().val(inputVal);
+    }
+    getLocalStorage(i);
+}
 
+// save to localStorage
+    $(".saveBtn").on("click", function(event) {
+        event.preventDefault();
+        saveID = $(this).data("save");
+        inputText = JSON.stringify($(this).siblings().find("textarea").val());
+        localStorage.setItem(saveID, inputText);
+
+    });
+};
+   
