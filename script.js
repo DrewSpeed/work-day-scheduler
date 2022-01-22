@@ -8,12 +8,12 @@ $("#currentDay").text($(this).text().replace("", today));
 for (var i=8; i<=17; i++) {
 
     // add form rows for columns to sit in
-    formRow = $('<form class="row">');
-    endForm = $('</form>')
+    formRow = $('<form class="row" id="' + i + '">');
+    endForm = $('</form>');
+ 
 
     $(".container").append(formRow);
     
- 
 
     //create display hour with added meridian
     meridian = ""
@@ -41,22 +41,28 @@ for (var i=8; i<=17; i++) {
 
 
     currentTime = moment().format("HH");
+    smallTime = moment().format("hh");
 
     //add save field
    saveField = $("<button class='col-1 saveBtn' id='save" + i + "'><i class='far fa-save fa-lg'></i></button>");
 
-   // append above additions to the page
-      $(formRow).append(hourField, inputField, saveField, endForm);
-     
 
-    }
+
+   // append above additions to the page
+      $(formRow).append(hourField, inputField, saveField);
+
+
 
 // colorize each row per time of day
 
-    if (i < currentTime) {
-        $(".userInput").addClass("past");
-    } else if (i == currentTime) {
-        $(".userInput").addClass("present");
-    } else {
-        $(".userInput").addClass("future");
-    };
+if (i < currentTime) {
+    $("textarea").last().addClass("past");
+} else if (i == currentTime) {
+    $("textarea").last().addClass("present");
+} else {
+    $("textarea").last().addClass("future");
+}
+
+    }
+
+
