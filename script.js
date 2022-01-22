@@ -37,14 +37,14 @@ for (var i=8; i<=17; i++) {
 
 
 //add textarea to each row
-    inputField = $("<div class='col-10'><textarea class='userInput description' name='userInput' id='" + i + "'> </textarea></div>");
+    inputField = $("<div class='col-9'><textarea class='userInput description' name='userInput' id='" + i + "'> </textarea></div>");
 
 
     currentTime = moment().format("HH");
     smallTime = moment().format("hh");
 
 //add save field
-   saveField = $("<button class='col-1 saveBtn' data-save='" + i + "'><i class='far fa-save fa-lg'></i></button>");
+   saveField = $("<button class='col-2 saveBtn' data-save='" + i + "'><i class='far fa-save fa-lg'></i></button>");
 
 
 
@@ -64,22 +64,23 @@ for (var i=8; i<=17; i++) {
     }
 
 // get localStorage
+    getLocalStorage(i);
     function getLocalStorage(time) {
         inputVal = localStorage.getItem(time);
         inputArea = $("textarea").last().attr("id");
+        console.log(typeof inputVal);
         if (true) {
             text = $("textarea").last().val(inputVal);
     }
-    getLocalStorage(i);
+    
 }
 
 // save to localStorage
     $(".saveBtn").on("click", function(event) {
         event.preventDefault();
         saveID = $(this).data("save");
-        inputText = JSON.stringify($(this).siblings().find("textarea").val());
+        inputText = $(this).siblings().find("textarea").val();
         localStorage.setItem(saveID, inputText);
 
     });
 };
-   
